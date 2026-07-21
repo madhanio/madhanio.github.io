@@ -31,7 +31,7 @@
             padding: 0;
         }
 
-       body {
+body {
     font-family: 'Inter', sans-serif;
     color: var(--text-main);
     min-height: 100vh;
@@ -40,32 +40,9 @@
     justify-content: center;
     overflow: hidden;
     
-    /* Deep black base */
-    background-color: #000000;
-    position: relative;
-    z-index: 1;
+    /* Sleek radial gradient */
+    background: radial-gradient(circle at 50% 0%, #1a1a24 0%, #050505 100%);
 }
-
-/* Subtle, cinematic glowing mesh */
-body::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        radial-gradient(circle at 50% 50%, rgba(45, 20, 80, 0.15), transparent 60%),
-        radial-gradient(circle at 80% 20%, rgba(10, 50, 70, 0.15), transparent 50%);
-    animation: slowRotate 30s linear infinite;
-    z-index: -1;
-}
-
-@keyframes slowRotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
         /* The Stunning Glass Card */
         .glass-card {
             background: var(--glass-bg);
