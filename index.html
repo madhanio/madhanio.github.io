@@ -32,28 +32,39 @@
         }
 
        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     
-            /* The Technical Grid Background */
-              background-color: #09090b; /* Deep off-black */
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: center center;
-        }
+    /* Deep black base */
+    background-color: #000000;
+    position: relative;
+    z-index: 1;
+}
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+/* Subtle, cinematic glowing mesh */
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(45, 20, 80, 0.15), transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(10, 50, 70, 0.15), transparent 50%);
+    animation: slowRotate 30s linear infinite;
+    z-index: -1;
+}
+
+@keyframes slowRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
         /* The Stunning Glass Card */
         .glass-card {
