@@ -31,18 +31,22 @@
             padding: 0;
         }
 
-        body {
+       body {
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Elevated version of your current pink gradient */
-            background: linear-gradient(135deg, #d53369 0%, #daae51 100%);
-            background-size: 200% 200%;
-            animation: gradientShift 10s ease infinite;
             overflow: hidden;
+    
+            /* The Technical Grid Background */
+              background-color: #09090b; /* Deep off-black */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
         }
 
         @keyframes gradientShift {
