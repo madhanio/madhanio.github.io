@@ -47,6 +47,7 @@
             border: 1px solid rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            margin-bottom: 2rem;
         }
 
         .editorial-header {
@@ -56,7 +57,6 @@
             margin-bottom: 1rem;
             color: #ffffff;
             opacity: 0.95;
-            /* Reserve space so layout doesn't shift between words */
             min-height: 1.15em;
         }
 
@@ -89,7 +89,6 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-bottom: 3.5rem;
             opacity: 0.3;
             transition: opacity 0.5s ease;
         }
@@ -110,44 +109,65 @@
             transform: translateY(-5px);
         }
 
-        /* Social Links */
-        .social-links {
+        /* Glassmorphic Floating Dock Bar */
+        .dock-container {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 9999px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .dock-icon {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 30px;
-        }
-
-        .social-link {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        color 0.2s ease, 
+                        background-color 0.2s ease,
+                        border-color 0.2s ease;
             text-decoration: none;
+        }
+
+        .dock-icon:hover {
+            transform: scale(1.22) translateY(-4px);
             color: #ffffff;
-            font-size: 0.8rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.6;
-            position: relative;
-            padding-bottom: 4px;
-            transition: opacity 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .social-link::after {
-            content: '';
-            position: absolute;
-            width: 0%;
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: #ffffff;
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .dock-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
-
-        .social-link:hover { opacity: 1; }
-        .social-link:hover::after { width: 100%; }
 
         @media (max-width: 600px) {
             .editorial-header { font-size: 2.5rem; }
             .editorial-card { padding: 3rem 1.5rem; }
             .tech-stack { gap: 20px; }
+            .dock-container { bottom: 16px; padding: 6px 12px; gap: 8px; }
+            .dock-icon { width: 38px; height: 38px; }
         }
     </style>
 </head>
@@ -189,12 +209,43 @@
 
         </div>
 
-        <div class="social-links">
-            <a href="https://github.com/madhanio" target="_blank" class="social-link">GitHub</a>
-            <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-link">LinkedIn</a> 
-        </div>
-
     </div>
+
+    <!-- Magic UI Style Floating Dock -->
+    <nav class="dock-container" aria-label="Dock Navigation">
+        <!-- Home Icon -->
+        <a href="#" class="dock-icon" title="Home" aria-label="Home">
+            <svg viewBox="0 0 24 24">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+        </a>
+
+        <!-- GitHub Icon -->
+        <a href="https://github.com/madhanio" target="_blank" rel="noopener noreferrer" class="dock-icon" title="GitHub" aria-label="GitHub">
+            <svg viewBox="0 0 24 24">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+        </a>
+
+        <!-- LinkedIn Icon -->
+        <a href="https://linkedin.com/in/madhan-adepu" target="_blank" rel="noopener noreferrer" class="dock-icon" title="LinkedIn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+            </svg>
+        </a>
+
+        <!-- Mail Icon -->
+        <a href="mailto:your-email@example.com" class="dock-icon" title="Email" aria-label="Email">
+            <svg viewBox="0 0 24 24">
+                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+        </a>
+    </nav>
 
     <script>
         // Typewriter loop
