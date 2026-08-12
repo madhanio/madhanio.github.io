@@ -3,294 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Adepu Madhan</title>
-    <meta name="description" content="Personal portfolio of Adepu Madhan Mohan, currently under construction.">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬛</text></svg>">
-
+    <title>Madhan Adepu - site under construction</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --text-main: #ffffff;
-            --text-muted: #888888;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 0%, #1a1a24 0%, #050505 100%);
+            background-color: #ede7df;
+            color: #111111;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
-        .editorial-card {
-            padding: 4rem 3rem;
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            margin-bottom: 2rem;
-        }
-
-        .editorial-header {
-            font-size: 3.5rem;
-            font-weight: 200;
-            letter-spacing: -1.5px;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            opacity: 0.95;
-            min-height: 1.15em;
-        }
-
-        /* Blinking cursor after the typewriter text */
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 0.85em;
-            background: rgba(255,255,255,0.5);
-            margin-left: 4px;
-            vertical-align: middle;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0; }
-        }
-
-        .sub-text {
-            font-size: 1.05rem;
-            font-weight: 300;
-            line-height: 1.6;
-            color: var(--text-muted);
-            margin-bottom: 3.5rem;
-        }
-
-        /* Tech Stack Icons */
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            opacity: 0.3;
-            transition: opacity 0.5s ease;
-        }
-
-        .tech-stack:hover {
-            opacity: 0.9;
-        }
-
-        .tech-stack svg {
-            width: 22px;
-            height: 22px;
-            fill: #ffffff;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-        }
-
-        .tech-stack svg:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Glassmorphic Floating Dock Bar */
-        .dock-container {
+        /* Fullscreen WebGL/Canvas Background */
+        #bgCanvas {
             position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 9999px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            z-index: 100;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            display: block;
+        }
+        
+
+        /* Subtle Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            opacity: 0.035;
+            pointer-events: none;
         }
 
-        .dock-icon {
+        /* Main Content Overlay */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 680px;
+            padding: 2rem 1.5rem;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.15rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 3.5rem;
+            color: #0d0d0d;
+            text-transform: lowercase;
+            user-select: none;
+        }
+
+        /* Title */
+        .title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.4px;
+            color: #111111;
+            margin-bottom: 1.25rem;
+            max-width: 520px;
+        }
+
+        /* Description */
+        .description {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1.25rem;
+        }
+
+        .description p {
+            margin: 4px 0;
+        }
+
+        /* Social Section */
+        .social-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .follow-txt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #666666;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+        .social-icons {
+            display: flex;
+            gap: 0.55rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-btn {
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        color 0.2s ease, 
-                        background-color 0.2s ease,
-                        border-color 0.2s ease;
-            text-decoration: none;
-        }
-
-        .dock-icon:hover {
-            transform: scale(1.22) translateY(-4px);
+            background-color: #0d0d0d;
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow:0.2s ease;
         }
 
-        .dock-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            background-color: #333333;
         }
 
-        @media (max-width: 600px) {
-            .editorial-header { font-size: 2.5rem; }
-            .editorial-card { padding: 3rem 1.5rem; }
-            .tech-stack { gap: 20px; }
-            .dock-container { bottom: 16px; padding: 6px 12px; gap: 8px; }
-            .dock-icon { width: 38px; height: 38px; }
+        .social-btn:active{
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Email Link */
+        .email-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #444;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Softened border opacity */
+    transition: all 0.2s ease;
+}
+
+.email-link:hover {
+    color: #000;
+    border-bottom-color: #000;
+}
+
+        .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #444;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+}
+
+        .status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    top: -1px; /* Shifts dot down 1px to align with uppercase text */
+}
+
+        @media (max-width: 640px) {
+            .logo {
+                font-size: 1.75rem;
+                margin-bottom: 2.5rem;
+            }
+            .title {
+                font-size: 1.4rem;
+            }
+            .description {
+                font-size: 0.8rem;
+                margin-bottom: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="editorial-card">
-        
-        <h1 class="editorial-header">
-            <span id="typewriter">Compiling.</span><span class="cursor"></span>
-        </h1>
+    <!-- Dynamic Canvas Background -->
+    <canvas id="bgCanvas"></canvas>
 
-        <p class="sub-text">Something's being built here by Madhan.<br>Check back soon.</p>
+    <!-- Noise Texture Overlay -->
+    <canvas id="noiseCanvas" class="noise-overlay"></canvas>
 
-        <!-- Tech Stack: Flutter · Node.js · Python · Supabase -->
-        <div class="tech-stack">
+    <!-- Main Content Overlay -->
+    <main class="content">
+        <div class="brand-badge">
+            <span class="status-dot"></span>Madhan Adepu</div>
 
-            <!-- Flutter -->
-            <svg viewBox="0 0 128 128" title="Flutter">
-                <path d="M12.3 64.2L76.3 0h39.4L32.1 83.6zm63.9 63.8h39.4L81.7 94.1l34.4-34.3H76.8L43.3 94.1z"/>
-            </svg>
+        <h1 class="title">Sorry! My site is<br>under construction</h1>
 
-            <!-- Node.js -->
-            <svg viewBox="0 0 128 128" title="Node.js">
-                <path d="M66.958 3.026a5.053 5.053 0 00-5.076 0L8.672 33.801C6.388 35.118 5 37.548 5 40.17v59.661c0 2.62 1.388 5.052 3.672 6.368l53.21 30.775a5.053 5.053 0 005.076 0l53.21-30.775c2.284-1.316 3.672-3.748 3.672-6.368V40.17c0-2.622-1.388-5.052-3.672-6.369zm-2.976 9.6l46.29 26.748v53.253L64 119.374 17.728 92.627V39.374z"/>
-                <path d="M64 28.56L35.17 45.22v33.56L64 95.44l28.83-16.66V45.22zm0 9.84l19.21 11.09v22.02L64 82.6l-19.21-11.09V49.49z"/>
-            </svg>
-
-            <!-- Python -->
-            <svg viewBox="0 0 128 128" title="Python">
-                <path d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"/>
-                <path d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"/>
-            </svg>
-
-            <!-- Supabase -->
-            <svg viewBox="0 0 128 128" title="Supabase">
-                <path d="M73.781 4.48c-2.317-3.487-7.856-1.863-7.894 2.353l-.473 53.203h35.822c6.498 0 10.13-7.473 6.176-12.63z"/>
-                <path d="M54.219 123.52c2.317 3.487 7.856 1.863 7.894-2.353l.869-53.203H27.16c-6.498 0-10.13 7.473-6.176 12.63z" opacity=".7"/>
-            </svg>
-
+        <div class="description">
+            <p>My portfolio is getting a fresh design and project updates.</p>
+            <p>Feel free to connect or reach out below!</p>
         </div>
 
-    </div>
-
-    <!-- Magic UI Style Floating Dock -->
-    <nav class="dock-container" aria-label="Dock Navigation">
-        <!-- Home Icon -->
-        <a href="#" class="dock-icon" title="Home" aria-label="Home">
-            <svg viewBox="0 0 24 24">
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-        </a>
-
-        <!-- GitHub Icon -->
-        <a href="https://github.com/madhanio" target="_blank" rel="noopener noreferrer" class="dock-icon" title="GitHub" aria-label="GitHub">
-            <svg viewBox="0 0 24 24">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
-                <path d="M9 18c-4.51 2-5-2-7-2"/>
-            </svg>
-        </a>
-
-        <!-- LinkedIn Icon -->
-        <a href="https://linkedin.com/in/madhan-adepu" target="_blank" rel="noopener noreferrer" class="dock-icon" title="LinkedIn" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-            </svg>
-        </a>
-
-        <!-- Mail Icon -->
-        <a href="mailto:madhan.adepu9@gmail.com" class="dock-icon" title="Email" aria-label="Email">
-            <svg viewBox="0 0 24 24">
-                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-            </svg>
-        </a>
-    </nav>
+        <div class="social-section">
+            <span class="follow-txt">Connect with me</span>
+            <div class="social-icons">
+                <a href="https://github.com/madhanio" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="linkedin.com/in/madhan-adepu" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>            
+            </div>
+            <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Drop an email</a>
+        </div>
+    </main>
 
     <script>
-        // Typewriter loop
-        const words = ['Compiling.', 'Rendering.', 'Deploying.'];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let deleting = false;
-        const el = document.getElementById('typewriter');
-        const TYPING_SPEED = 80;
-        const DELETING_SPEED = 45;
-        const PAUSE_AFTER_WORD = 1800;
-        const PAUSE_BEFORE_TYPE = 300;
+        // High Performance Rotating Canvas Fluid Gradient
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
 
-        function type() {
-            const current = words[wordIndex];
+        let width, height, radius;
+        let angle = 0;
 
-            if (deleting) {
-                charIndex--;
-                el.textContent = current.slice(0, charIndex);
-                if (charIndex === 0) {
-                    deleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
-                    setTimeout(type, PAUSE_BEFORE_TYPE);
-                    return;
-                }
-                setTimeout(type, DELETING_SPEED);
-            } else {
-                charIndex++;
-                el.textContent = current.slice(0, charIndex);
-                if (charIndex === current.length) {
-                    deleting = true;
-                    setTimeout(type, PAUSE_AFTER_WORD);
-                    return;
-                }
-                setTimeout(type, TYPING_SPEED);
-            }
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            radius = Math.max(width, height) * 0.75;
         }
 
-        type();
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
 
-        // Console easter egg
-        console.log(
-            "%c[init] // AMM stack booting.\n\nYou found the source. Let's connect.",
-            "color: #aaaaaa; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300;"
-        );
+        // Color definitions matching video palette (lightened)
+        const baseBg = "#f5f1ec";
+        
+        // Blobs with orbit parameters (lighter colors & higher transparency)
+        const blobs = [
+            { r: 250, g: 175, b: 125, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
+            { r: 255, g: 195, b: 150, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
+            { r: 245, g: 160, b: 105, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
+            { r: 252, g: 210, b: 175, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
+        ];
+
+        function render() {
+            angle += 0.015; // Increased speed (3x faster rotation)
+
+            // Fill base light off-white background
+            ctx.fillStyle = baseBg;
+            ctx.fillRect(0, 0, width, height);
+
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // Draw fluid orbiting & morphing warm gradient blobs
+            blobs.forEach((blob) => {
+                const currentAngle = angle * (blob.speed / 0.015) + blob.phase;
+                
+                // Orbiting path calculation
+                const x = centerX + Math.cos(currentAngle) * (radius * blob.orbitR) + Math.sin(angle * 1.5) * 50;
+                const y = centerY + Math.sin(currentAngle * 0.8) * (radius * blob.orbitR * 0.8) + Math.cos(angle * 1.2) * 50;
+                const currentRadius = radius * blob.sizeMult * (1 + Math.sin(angle * 2 + blob.phase) * 0.12);
+
+                const grad = ctx.createRadialGradient(x, y, 0, x, y, currentRadius);
+                grad.addColorStop(0, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a})`);
+                grad.addColorStop(0.4, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a * 0.4})`);
+                grad.addColorStop(1, `rgba(${blob.r}, ${blob.g}, ${blob.b}, 0)`);
+
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(x, y, currentRadius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(render);
+        }
+
+        render();
+
+        // Noise overlay generator
+        const noiseCanvas = document.getElementById('noiseCanvas');
+        if (noiseCanvas) {
+            const nCtx = noiseCanvas.getContext('2d');
+            function resizeNoise() {
+                noiseCanvas.width = window.innerWidth;
+                noiseCanvas.height = window.innerHeight;
+                generateNoise();
+            }
+            function generateNoise() {
+                const imgData = nCtx.createImageData(noiseCanvas.width, noiseCanvas.height);
+                const buffer = new Uint32Array(imgData.data.buffer);
+                for (let i = 0; i < buffer.length; i++) {
+                    if (Math.random() < 0.5) {
+                        buffer[i] = 0xff000000;
+                    }
+                }
+                nCtx.putImageData(imgData, 0, 0);
+            }
+            window.addEventListener('resize', resizeNoise);
+            resizeNoise();
+        }
     </script>
 </body>
 </html>
