@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madhan Adepu - site under construction</title>
+    <title>Pixblok - Under Construction</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,13 +62,14 @@
             pointer-events: none;
         }
 
-        /* Main Content Overlay */
+        /* Main Content Overlay - Fully Dynamic Clamp Relative Scaling */
         .content {
             position: relative;
             z-index: 10;
             text-align: center;
+            width: 90vw;
             max-width: 680px;
-            padding: 2rem 1.5rem;
+            padding: clamp(1rem, 4vh, 2.5rem) 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -77,10 +78,10 @@
         /* Logo */
         .logo {
             font-family: 'Syne', sans-serif;
-            font-size: 2.15rem;
+            font-size: clamp(1.6rem, 3.5vw, 2.15rem);
             font-weight: 800;
             letter-spacing: -1px;
-            margin-bottom: 3.5rem;
+            margin-bottom: clamp(1.5rem, 5vh, 3.5rem);
             color: #0d0d0d;
             text-transform: lowercase;
             user-select: none;
@@ -88,21 +89,21 @@
 
         /* Title */
         .title {
-            font-size: 1.75rem;
+            font-size: clamp(1.35rem, 3vw, 1.75rem);
             font-weight: 700;
             line-height: 1.25;
             letter-spacing: -0.4px;
             color: #111111;
-            margin-bottom: 1.25rem;
+            margin-bottom: clamp(0.75rem, 2.5vh, 1.25rem);
             max-width: 520px;
         }
 
         /* Description */
         .description {
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.85rem);
             line-height: 1.6;
             color: #555;
-            margin-bottom: 1.25rem;
+            margin-bottom: clamp(0.85rem, 2.5vh, 1.25rem);
         }
 
         .description p {
@@ -114,28 +115,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.75rem;
+            gap: clamp(0.4rem, 1.5vh, 0.75rem);
         }
 
         .follow-txt {
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #666666;
-    margin-bottom: 0.75rem;
-    display: block;
-}
+            font-size: clamp(0.62rem, 1.2vw, 0.72rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #666666;
+            margin-bottom: clamp(0.35rem, 1.5vh, 0.75rem);
+            display: block;
+        }
 
         .social-icons {
             display: flex;
-            gap: 0.55rem;
-            margin-bottom: 0.5rem;
+            gap: clamp(0.4rem, 1.2vw, 0.55rem);
+            margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
         }
 
         .social-btn {
-            width: 28px;
-            height: 28px;
+            width: clamp(26px, 2.2vw, 30px);
+            height: clamp(26px, 2.2vw, 30px);
             border-radius: 50%;
             background-color: #0d0d0d;
             color: #ffffff;
@@ -143,8 +144,8 @@
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            font-size: 0.7rem;
-            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow:0.2s ease;
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .social-btn:hover {
@@ -159,63 +160,50 @@
 
         /* Email Link */
         .email-link {
-    display: inline-block;
-    margin-top: 1rem;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: #444;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    padding-bottom: 2px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Softened border opacity */
-    transition: all 0.2s ease;
-}
+            display: inline-block;
+            margin-top: clamp(0.5rem, 1.8vh, 1rem);
+            font-size: clamp(0.7rem, 1.3vw, 0.78rem);
+            font-weight: 500;
+            color: #444;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            padding-bottom: 2px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
 
-.email-link:hover {
-    color: #000;
-    border-bottom-color: #000;
-}
+        .email-link:hover {
+            color: #000;
+            border-bottom-color: #000;
+        }
 
         .brand-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 6px 14px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #444;
-    background: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 999px;
-    margin-bottom: 1.5rem;
-}
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: clamp(4px, 1vh, 6px) clamp(10px, 2vw, 14px);
+            font-size: clamp(0.65rem, 1.2vw, 0.72rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #444;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            margin-bottom: clamp(1rem, 3vh, 1.5rem);
+        }
 
         .status-dot {
-    width: 6px;
-    height: 6px;
-    background-color: #10b981;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-    top: -1px; /* Shifts dot down 1px to align with uppercase text */
-}
-
-        @media (max-width: 640px) {
-            .logo {
-                font-size: 1.75rem;
-                margin-bottom: 2.5rem;
-            }
-            .title {
-                font-size: 1.4rem;
-            }
-            .description {
-                font-size: 0.8rem;
-                margin-bottom: 2rem;
-            }
+            width: 6px;
+            height: 6px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            top: -1px;
         }
     </style>
 </head>
@@ -230,7 +218,8 @@
     <!-- Main Content Overlay -->
     <main class="content">
         <div class="brand-badge">
-            <span class="status-dot"></span>Madhan Adepu</div>
+            <span class="status-dot"></span>Madhan Adepu
+        </div>
 
         <h1 class="title">Sorry! My site is<br>under construction</h1>
 
@@ -242,8 +231,8 @@
         <div class="social-section">
             <span class="follow-txt">Connect with me</span>
             <div class="social-icons">
-                <a href="https://github.com/madhanio" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="linkedin.com/in/madhan-adepu" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>            
+                <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>            
             </div>
             <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Drop an email</a>
         </div>
