@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madhan Adepu - Building Something New</title>
     
-    <!-- SVG Favicon (Minimalist Glowing Dot / Code Icon) -->
+    <!-- SVG Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230d0d0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2310b981'/%3E%3C/svg%3E">
 
     <!-- Google Fonts -->
@@ -34,7 +34,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background-color: #ede7df;
+            background-color: #f6f0e8;
             color: #111111;
             position: relative;
             -webkit-font-smoothing: antialiased;
@@ -42,7 +42,7 @@
             text-rendering: optimizeLegibility;
         }
 
-        /* Fullscreen WebGL/Canvas Background */
+        /* Canvas Background */
         #bgCanvas {
             position: fixed;
             top: 0;
@@ -53,7 +53,7 @@
             display: block;
         }
 
-        /* Subtle Noise Overlay */
+        /* Subtle Grain Texture */
         .noise-overlay {
             position: fixed;
             top: 0;
@@ -65,43 +65,43 @@
             pointer-events: none;
         }
 
-        /* Main Content Overlay - Fully Dynamic Clamp Relative Scaling */
+        /* Main Content Container - Increased base sizes for Desktop/Laptop */
         .content {
             position: relative;
             z-index: 10;
             text-align: center;
             width: 90vw;
-            max-width: 680px;
-            padding: clamp(1rem, 4vh, 2.5rem) 1.5rem;
+            max-width: 760px;
+            padding: 2.5rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Brand Pill Badge */
+        /* Top Brand Pill Badge */
         .brand-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: clamp(5px, 1.2vh, 7px) clamp(12px, 2.5vw, 16px);
-            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
-            font-weight: 600;
+            padding: 7px 18px;
+            font-size: 0.78rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #444;
+            color: #333333;
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 999px;
-            margin-bottom: clamp(1rem, 3vh, 1.5rem);
+            margin-bottom: 2rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .status-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             background-color: #10b981;
             border-radius: 50%;
             display: inline-block;
@@ -110,40 +110,37 @@
             box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
         }
 
-        /* Confident Title */
+        /* Headline Title - Larger Desktop Scaling */
         .title {
-            font-size: clamp(1.45rem, 3.2vw, 2rem);
+            font-size: clamp(2.1rem, 4.2vw, 3.2rem);
             font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -0.5px;
+            line-height: 1.18;
+            letter-spacing: -0.8px;
             color: #0d0d0d;
-            margin-bottom: clamp(0.75rem, 2.5vh, 1.25rem);
+            margin-bottom: 1.5rem;
+            max-width: 640px;
+        }
+
+        /* Subtitle Description */
+        .description {
+            font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+            line-height: 1.6;
+            color: #444444;
+            margin-bottom: 2.25rem;
             max-width: 540px;
         }
 
-        /* Description with subtle teaser */
-        .description {
-            font-size: clamp(0.78rem, 1.5vw, 0.88rem);
-            line-height: 1.6;
-            color: #555555;
-            margin-bottom: clamp(1.2rem, 3vh, 1.6rem);
-            max-width: 480px;
-        }
-
         .description p {
-            margin: 4px 0;
+            margin: 0 0 0.5rem 0;
         }
 
-        .teaser-pill {
-            display: inline-block;
-            font-size: clamp(0.68rem, 1.1vw, 0.75rem);
+        /* Seamless Teaser Line matching text tone */
+        .teaser-line {
+            display: block;
+            font-size: clamp(0.85rem, 1.35vw, 1rem);
             font-weight: 600;
-            color: #2563eb;
-            background: rgba(37, 99, 235, 0.08);
-            padding: 3px 10px;
-            border-radius: 6px;
-            margin-top: 8px;
-            letter-spacing: 0.02em;
+            color: #222222;
+            margin-top: 0.5rem;
         }
 
         /* Social Section */
@@ -151,28 +148,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: clamp(0.4rem, 1.5vh, 0.75rem);
+            gap: 1.25rem;
         }
 
         .follow-txt {
-            font-size: clamp(0.62rem, 1.2vw, 0.72rem);
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #666666;
-            margin-bottom: clamp(0.35rem, 1.5vh, 0.6rem);
+            letter-spacing: 0.12em;
+            color: #555555;
             display: block;
         }
 
+        /* Significantly Larger Icons (GitHub & LinkedIn) */
         .social-icons {
             display: flex;
-            gap: clamp(0.55rem, 1.5vw, 0.75rem);
-            margin-bottom: clamp(0.4rem, 1.2vh, 0.75rem);
+            gap: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .social-btn {
-            width: clamp(32px, 2.5vw, 36px);
-            height: clamp(32px, 2.5vw, 36px);
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background-color: #0d0d0d;
             color: #ffffff;
@@ -180,52 +177,37 @@
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            font-size: clamp(0.75rem, 1.3vw, 0.85rem);
-            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px) scale(1.06);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-            background-color: #252525;
-        }
-
-        .social-btn:active{
-            transform: translateY(0) scale(0.98);
-        }
-
-        /* Prominent Email Button Pill (Highly Visible on Mobile) */
-        .email-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: clamp(0.4rem, 1.5vh, 0.75rem);
-            font-size: clamp(0.75rem, 1.3vw, 0.825rem);
-            font-weight: 600;
-            color: #0d0d0d;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            padding: clamp(7px, 1.4vh, 9px) clamp(16px, 3vw, 20px);
-            border-radius: 999px;
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            transition: all 0.2s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-        }
-
-        .email-link:hover {
-            background: #0d0d0d;
-            color: #ffffff;
-            border-color: #0d0d0d;
-            transform: translateY(-2px);
+            font-size: 1.25rem;
+            transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow 0.25s ease;
             box-shadow: 0 6px 16px rgba(0,0,0,0.12);
         }
 
-        .email-link i {
-            font-size: 0.85em;
+        .social-btn:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+            background-color: #222222;
+        }
+
+        .social-btn:active {
+            transform: translateY(0) scale(0.96);
+        }
+
+        /* Seamless & Elegant Underlined Email CTA matching original aesthetic */
+        .email-link {
+            display: inline-block;
+            font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+            font-weight: 700;
+            color: #0d0d0d;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            padding-bottom: 3px;
+            border-bottom: 2px solid #0d0d0d;
+            transition: opacity 0.2s ease, border-color 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .email-link:hover {
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -246,8 +228,8 @@
         <h1 class="title">Building something<br>new & better</h1>
 
         <div class="description">
-            <p>Crafting a fresh digital portfolio with new projects & experiments.</p>
-            <span class="teaser-pill">🚀 New projects & case studies coming soon</span>
+            <p>Crafting a fresh digital portfolio with new projects & case studies.</p>
+            <span class="teaser-line">Stay tuned — full showcase launching soon.</span>
         </div>
 
         <div class="social-section">
@@ -256,7 +238,7 @@
                 <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>            
             </div>
-            <a href="mailto:madhan.adepu9@gmail.com" class="email-link"><i class="fa-regular fa-envelope"></i> Drop an email</a>
+            <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Drop an email</a>
         </div>
     </main>
 
@@ -277,15 +259,13 @@
         window.addEventListener('resize', initCanvas);
         initCanvas();
 
-        // Color definitions matching video palette (lightened)
-        const baseBg = "#f5f1ec";
+        const baseBg = "#f6f0e8";
         
-        // Blobs with orbit parameters (lighter colors & higher transparency)
         const blobs = [
-            { r: 250, g: 175, b: 125, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
-            { r: 255, g: 195, b: 150, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
-            { r: 245, g: 160, b: 105, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
-            { r: 252, g: 210, b: 175, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
+            { r: 248, g: 185, b: 140, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
+            { r: 255, g: 205, b: 160, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
+            { r: 242, g: 170, b: 120, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
+            { r: 252, g: 215, b: 185, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
         ];
 
         function render() {
