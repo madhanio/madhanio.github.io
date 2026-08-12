@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixblok - Under Construction</title>
+    <title>Madhan Adepu - Building Something New</title>
+    
+    <!-- SVG Favicon (Minimalist Glowing Dot / Code Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230d0d0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2310b981'/%3E%3C/svg%3E">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +52,6 @@
             z-index: 1;
             display: block;
         }
-        
 
         /* Subtle Noise Overlay */
         .noise-overlay {
@@ -75,39 +78,72 @@
             align-items: center;
         }
 
-        /* Logo */
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1.6rem, 3.5vw, 2.15rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: clamp(1.5rem, 5vh, 3.5rem);
-            color: #0d0d0d;
-            text-transform: lowercase;
-            user-select: none;
+        /* Brand Pill Badge */
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: clamp(5px, 1.2vh, 7px) clamp(12px, 2.5vw, 16px);
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #444;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            margin-bottom: clamp(1rem, 3vh, 1.5rem);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
-        /* Title */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            top: -1px;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Confident Title */
         .title {
-            font-size: clamp(1.35rem, 3vw, 1.75rem);
-            font-weight: 700;
-            line-height: 1.25;
-            letter-spacing: -0.4px;
-            color: #111111;
+            font-size: clamp(1.45rem, 3.2vw, 2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            color: #0d0d0d;
             margin-bottom: clamp(0.75rem, 2.5vh, 1.25rem);
-            max-width: 520px;
+            max-width: 540px;
         }
 
-        /* Description */
+        /* Description with subtle teaser */
         .description {
-            font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+            font-size: clamp(0.78rem, 1.5vw, 0.88rem);
             line-height: 1.6;
-            color: #555;
-            margin-bottom: clamp(0.85rem, 2.5vh, 1.25rem);
+            color: #555555;
+            margin-bottom: clamp(1.2rem, 3vh, 1.6rem);
+            max-width: 480px;
         }
 
         .description p {
             margin: 4px 0;
+        }
+
+        .teaser-pill {
+            display: inline-block;
+            font-size: clamp(0.68rem, 1.1vw, 0.75rem);
+            font-weight: 600;
+            color: #2563eb;
+            background: rgba(37, 99, 235, 0.08);
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+            letter-spacing: 0.02em;
         }
 
         /* Social Section */
@@ -120,23 +156,23 @@
 
         .follow-txt {
             font-size: clamp(0.62rem, 1.2vw, 0.72rem);
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             color: #666666;
-            margin-bottom: clamp(0.35rem, 1.5vh, 0.75rem);
+            margin-bottom: clamp(0.35rem, 1.5vh, 0.6rem);
             display: block;
         }
 
         .social-icons {
             display: flex;
-            gap: clamp(0.4rem, 1.2vw, 0.55rem);
-            margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
+            gap: clamp(0.55rem, 1.5vw, 0.75rem);
+            margin-bottom: clamp(0.4rem, 1.2vh, 0.75rem);
         }
 
         .social-btn {
-            width: clamp(26px, 2.2vw, 30px);
-            height: clamp(26px, 2.2vw, 30px);
+            width: clamp(32px, 2.5vw, 36px);
+            height: clamp(32px, 2.5vw, 36px);
             border-radius: 50%;
             background-color: #0d0d0d;
             color: #ffffff;
@@ -144,66 +180,52 @@
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            font-size: clamp(0.75rem, 1.3vw, 0.85rem);
             transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .social-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-            background-color: #333333;
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            background-color: #252525;
         }
 
         .social-btn:active{
             transform: translateY(0) scale(0.98);
         }
 
-        /* Email Link */
+        /* Prominent Email Button Pill (Highly Visible on Mobile) */
         .email-link {
-            display: inline-block;
-            margin-top: clamp(0.5rem, 1.8vh, 1rem);
-            font-size: clamp(0.7rem, 1.3vw, 0.78rem);
-            font-weight: 500;
-            color: #444;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: clamp(0.4rem, 1.5vh, 0.75rem);
+            font-size: clamp(0.75rem, 1.3vw, 0.825rem);
+            font-weight: 600;
+            color: #0d0d0d;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            padding: clamp(7px, 1.4vh, 9px) clamp(16px, 3vw, 20px);
+            border-radius: 999px;
             text-decoration: none;
-            letter-spacing: 0.02em;
-            padding-bottom: 2px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.01em;
             transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
         }
 
         .email-link:hover {
-            color: #000;
-            border-bottom-color: #000;
+            background: #0d0d0d;
+            color: #ffffff;
+            border-color: #0d0d0d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
         }
 
-        .brand-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: clamp(4px, 1vh, 6px) clamp(10px, 2vw, 14px);
-            font-size: clamp(0.65rem, 1.2vw, 0.72rem);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #444;
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 999px;
-            margin-bottom: clamp(1rem, 3vh, 1.5rem);
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #10b981;
-            border-radius: 50%;
-            display: inline-block;
-            position: relative;
-            top: -1px;
+        .email-link i {
+            font-size: 0.85em;
         }
     </style>
 </head>
@@ -221,11 +243,11 @@
             <span class="status-dot"></span>Madhan Adepu
         </div>
 
-        <h1 class="title">Sorry! My site is<br>under construction</h1>
+        <h1 class="title">Building something<br>new & better</h1>
 
         <div class="description">
-            <p>My portfolio is getting a fresh design and project updates.</p>
-            <p>Feel free to connect or reach out below!</p>
+            <p>Crafting a fresh digital portfolio with new projects & experiments.</p>
+            <span class="teaser-pill">🚀 New projects & case studies coming soon</span>
         </div>
 
         <div class="social-section">
@@ -234,7 +256,7 @@
                 <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>            
             </div>
-            <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Drop an email</a>
+            <a href="mailto:madhan.adepu9@gmail.com" class="email-link"><i class="fa-regular fa-envelope"></i> Drop an email</a>
         </div>
     </main>
 
@@ -267,20 +289,17 @@
         ];
 
         function render() {
-            angle += 0.015; // Increased speed (3x faster rotation)
+            angle += 0.015;
 
-            // Fill base light off-white background
             ctx.fillStyle = baseBg;
             ctx.fillRect(0, 0, width, height);
 
             const centerX = width / 2;
             const centerY = height / 2;
 
-            // Draw fluid orbiting & morphing warm gradient blobs
             blobs.forEach((blob) => {
                 const currentAngle = angle * (blob.speed / 0.015) + blob.phase;
                 
-                // Orbiting path calculation
                 const x = centerX + Math.cos(currentAngle) * (radius * blob.orbitR) + Math.sin(angle * 1.5) * 50;
                 const y = centerY + Math.sin(currentAngle * 0.8) * (radius * blob.orbitR * 0.8) + Math.cos(angle * 1.2) * 50;
                 const currentRadius = radius * blob.sizeMult * (1 + Math.sin(angle * 2 + blob.phase) * 0.12);
