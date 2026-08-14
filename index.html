@@ -158,6 +158,13 @@
             letter-spacing: 0.12em;
             color: #555555;
             display: block;
+            min-height: 1.2rem;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .follow-text.fading {
+            opacity: 0;
+            transform: translateY(-2px);
         }
 
         /* Significantly Larger Icons (GitHub & LinkedIn) */
@@ -246,10 +253,10 @@
         </div>
 
         <div class="social-section">
-            <span class="follow-txt">Find me online</span>
+            <span class="follow-txt" id="followTxt">Find me online</span>
             <div class="social-icons">
-                <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>            
+                <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub" data-hover="STALK MY CODE."><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn" data-hover="KNOW ME? CONNECT."><i class="fa-brands fa-linkedin-in"></i></a>            
             </div>
             <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Hit my inbox →</a>
         </div>
@@ -341,6 +348,32 @@
             window.addEventListener('resize', resizeNoise);
             resizeNoise();
         }
+
+        const followTxt = document.getElementById('followTxt');
+const defaultText = followTxt.textContent;
+const socialButtons = document.querySelectorAll('.social-btn');
+
+socialButtons.forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    const hoverText = btn.getAttribute('data-hover');
+    if (!hoverText) return;
+    
+    followTxt.classList.add('fading');
+    setTimeout(() => {
+      followTxt.textContent = hoverText;
+      followTxt.classList.remove('fading');
+    }, 150);
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    followTxt.classList.add('fading');
+    setTimeout(() => {
+      followTxt.textContent = defaultText;
+      followTxt.classList.remove('fading');
+    }, 150);
+  });
+});
+        
     </script>
 </body>
 </html>
