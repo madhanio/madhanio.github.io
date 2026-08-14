@@ -1,379 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madhan Adepu - Building Something New</title>
-    
-    <!-- SVG Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230d0d0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2310b981'/%3E%3C/svg%3E">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Madhan Adepu - Building Something New</title>
+  
+  <!-- SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230d0d0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2310b981'/%3E%3C/svg%3E">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: #f6f0e8;
+      color: #111111;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
 
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background-color: #f6f0e8;
-            color: #111111;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
+    /* Canvas Background */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      display: block;
+    }
 
-        /* Canvas Background */
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            display: block;
-        }
+    /* Subtle Grain Texture */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2;
+      opacity: 0.035;
+      pointer-events: none;
+    }
 
-        /* Subtle Grain Texture */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 2;
-            opacity: 0.035;
-            pointer-events: none;
-        }
+    /* Main Content Container */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      width: 90vw;
+      max-width: 760px;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        /* Main Content Container - Increased base sizes for Desktop/Laptop */
-        .content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            width: 90vw;
-            max-width: 760px;
-            padding: 2.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    /* Top Brand Pill Badge */
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 7px 18px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #333333;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 999px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
 
-        /* Top Brand Pill Badge */
-        .brand-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 7px 18px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #333333;
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 999px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      top: -1px;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    }
 
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            background-color: #10b981;
-            border-radius: 50%;
-            display: inline-block;
-            position: relative;
-            top: -1px;
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
-        }
+    /* Headline Title */
+    .title {
+      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.8px;
+      color: #0d0d0d;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
 
-        /* Headline Title - Larger Desktop Scaling */
-        .title {
-            font-size: clamp(2.1rem, 4.2vw, 3.2rem);
-            font-weight: 800;
-            line-height: 1.18;
-            letter-spacing: -0.8px;
-            color: #0d0d0d;
-            margin-bottom: 1.5rem;
-            max-width: 640px;
-        }
+    /* Subtitle Description */
+    .description {
+      font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+      line-height: 1.6;
+      color: #444444;
+      margin-bottom: 2.25rem;
+      max-width: 540px;
+    }
 
-        /* Subtitle Description */
-        .description {
-            font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-            line-height: 1.6;
-            color: #444444;
-            margin-bottom: 2.25rem;
-            max-width: 540px;
-        }
+    .description p {
+      margin: 0 0 0.5rem 0;
+    }
 
-        .description p {
-            margin: 0 0 0.5rem 0;
-        }
+    /* Social Section */
+    .social-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
 
-        /* Seamless Teaser Line matching text tone */
-        .teaser-line {
-            display: block;
-            font-size: clamp(0.85rem, 1.35vw, 1rem);
-            font-weight: 600;
-            color: #222222;
-            margin-top: 0.5rem;
-        }
+    /* Bi-Directional Text Roller Mask */
+    .roller-wrapper {
+      position: relative;
+      height: 1.35rem;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* Social Section */
-        .social-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.25rem;
-        }
+    .follow-txt {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #444444;
+      display: inline-block;
+      white-space: nowrap;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  opacity 0.22s ease, 
+                  filter 0.22s ease;
+      will-change: transform, opacity, filter;
+    }
 
-        .follow-txt {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #555555;
-            display: block;
-            min-height: 1.2rem;
-            transition: opacity 0.15s ease, transform 0.15s ease;
-        }
+    /* Roll UP (Hover In) */
+    .follow-txt.roll-out-up {
+      transform: translateY(-110%);
+      opacity: 0;
+      filter: blur(2px);
+    }
+    .follow-txt.prepare-bottom {
+      transition: none !important;
+      transform: translateY(110%);
+      opacity: 0;
+      filter: blur(2px);
+    }
 
-        .follow-text.fading {
-            opacity: 0;
-            transform: translateY(-2px);
-        }
+    /* Roll DOWN (Hover Out / Return) */
+    .follow-txt.roll-out-down {
+      transform: translateY(110%);
+      opacity: 0;
+      filter: blur(2px);
+    }
+    .follow-txt.prepare-top {
+      transition: none !important;
+      transform: translateY(-110%);
+      opacity: 0;
+      filter: blur(2px);
+    }
 
-        /* Significantly Larger Icons (GitHub & LinkedIn) */
-        .social-icons {
-            display: flex;
-            gap: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
+    /* Icons (GitHub & LinkedIn) */
+    .social-icons {
+      display: flex;
+      gap: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
 
-        .social-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: #0d0d0d;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 1.25rem;
-            transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, box-shadow 0.25s ease;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-        }
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #0d0d0d;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  background-color 0.2s ease, 
+                  box-shadow 0.25s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
 
-        .social-btn:hover {
-            transform: translateY(-4px) scale(1.08);
-            box-shadow: 0 10px 24px rgba(0,0,0,0.2);
-            background-color: #222222;
-        }
+    .social-btn:hover {
+      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+      background-color: #222222;
+    }
 
-        .social-btn:active {
-            transform: translateY(0) scale(0.96);
-        }
+    .social-btn:active {
+      transform: translateY(0) scale(0.96);
+    }
 
-        /* Seamless & Elegant Underlined Email CTA matching original aesthetic */
-        .email-link {
-            display: inline-block;
-            font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-            font-weight: 700;
-            color: #0d0d0d;
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            padding-bottom: 3px;
-            border-bottom: 2px solid #0d0d0d;
-            transition: opacity 0.2s ease, border-color 0.2s ease;
-            margin-top: 0.5rem;
-        }
+    /* Elegant Underlined Email CTA */
+    .email-link {
+      display: inline-block;
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+      font-weight: 700;
+      color: #0d0d0d;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      padding-bottom: 3px;
+      border-bottom: 2px solid #0d0d0d;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+      margin-top: 0.5rem;
+    }
 
-        .email-link:hover {
-            opacity: 0.7;
-        }
+    .email-link:hover {
+      opacity: 0.7;
+    }
 
-        .site-footer {
-          position: absolute;
-          bottom: 24px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 0.85rem;
-          letter-spacing: 0.04em;
-          color: rgba(0, 0, 0, 0.45);
-          font-weight: 500;
-          pointer-events: none;
-          z-index: 10;
-        }
-    </style>
+    /* Footer */
+    .site-footer {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      color: rgba(0, 0, 0, 0.45);
+      font-weight: 500;
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Dynamic Canvas Background -->
-    <canvas id="bgCanvas"></canvas>
+  <!-- Dynamic Canvas Background -->
+  <canvas id="bgCanvas"></canvas>
 
-    <!-- Noise Texture Overlay -->
-    <canvas id="noiseCanvas" class="noise-overlay"></canvas>
+  <!-- Noise Texture Overlay -->
+  <canvas id="noiseCanvas" class="noise-overlay"></canvas>
 
-    <!-- Main Content Overlay -->
-    <main class="content">
-        <div class="brand-badge">
-            <span class="status-dot"></span>Madhan Adepu
-        </div>
+  <!-- Main Content Overlay -->
+  <main class="content">
+    <div class="brand-badge">
+      <span class="status-dot"></span>Madhan Adepu
+    </div>
 
-        <h1 class="title">Cooking up<br>some shit!</h1>
+    <h1 class="title">Cooking up<br>some shit!</h1>
 
-        <div class="description">
-            <p>Building stuff. Breaking stuff. Fixing stuff. Calling bugs features.</p>
-            <p>The full portfolio is dropping soon.</p>
-        </div>
+    <div class="description">
+      <p>Building stuff. Breaking stuff. Fixing stuff. Calling bugs features.</p>
+      <p>The full portfolio is dropping soon.</p>
+    </div>
 
-        <div class="social-section">
-            <span class="follow-txt" id="followTxt">Find me online</span>
-            <div class="social-icons">
-                <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub" data-hover="STALK MY CODE."><i class="fa-brands fa-github"></i></a>
-                <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn" data-hover="KNOW ME? CONNECT."><i class="fa-brands fa-linkedin-in"></i></a>            
-            </div>
-            <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Hit my inbox →</a>
-        </div>
-    </main>
+    <div class="social-section">
+      <div class="roller-wrapper">
+        <span class="follow-txt" id="followTxt">Find me online</span>
+      </div>
 
-    <footer class="site-footer">
-        <p>© <span id="year"></span> Madhan</p>
-    </footer>
+      <div class="social-icons">
+        <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub" data-hover="STALK MY CODE.">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn" data-hover="KNOW ME? CONNECT.">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+      </div>
 
-    <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-        
-        // High Performance Rotating Canvas Fluid Gradient
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
+      <a href="mailto:madhan.adepu9@gmail.com" class="email-link">Hit my inbox →</a>
+    </div>
+  </main>
 
-        let width, height, radius;
-        let angle = 0;
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Madhan</p>
+  </footer>
 
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            radius = Math.max(width, height) * 0.75;
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // High Performance Rotating Canvas Fluid Gradient
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, radius;
+    let angle = 0;
+
+    function initCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      radius = Math.max(width, height) * 0.75;
+    }
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+
+    const baseBg = "#f6f0e8";
+    const blobs = [
+      { r: 248, g: 185, b: 140, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
+      { r: 255, g: 205, b: 160, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
+      { r: 242, g: 170, b: 120, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
+      { r: 252, g: 215, b: 185, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
+    ];
+
+    function render() {
+      angle += 0.015;
+      ctx.fillStyle = baseBg;
+      ctx.fillRect(0, 0, width, height);
+
+      const centerX = width / 2;
+      const centerY = height / 2;
+
+      blobs.forEach((blob) => {
+        const currentAngle = angle * (blob.speed / 0.015) + blob.phase;
+        const x = centerX + Math.cos(currentAngle) * (radius * blob.orbitR) + Math.sin(angle * 1.5) * 50;
+        const y = centerY + Math.sin(currentAngle * 0.8) * (radius * blob.orbitR * 0.8) + Math.cos(angle * 1.2) * 50;
+        const currentRadius = radius * blob.sizeMult * (1 + Math.sin(angle * 2 + blob.phase) * 0.12);
+
+        const grad = ctx.createRadialGradient(x, y, 0, x, y, currentRadius);
+        grad.addColorStop(0, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a})`);
+        grad.addColorStop(0.4, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a * 0.4})`);
+        grad.addColorStop(1, `rgba(${blob.r}, ${blob.g}, ${blob.b}, 0)`);
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(x, y, currentRadius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(render);
+    }
+    render();
+
+    // Noise overlay generator
+    const noiseCanvas = document.getElementById('noiseCanvas');
+    if (noiseCanvas) {
+      const nCtx = noiseCanvas.getContext('2d');
+      function resizeNoise() {
+        noiseCanvas.width = window.innerWidth;
+        noiseCanvas.height = window.innerHeight;
+        generateNoise();
+      }
+      function generateNoise() {
+        const imgData = nCtx.createImageData(noiseCanvas.width, noiseCanvas.height);
+        const buffer = new Uint32Array(imgData.data.buffer);
+        for (let i = 0; i < buffer.length; i++) {
+          if (Math.random() < 0.5) {
+            buffer[i] = 0xff000000;
+          }
         }
+        nCtx.putImageData(imgData, 0, 0);
+      }
+      window.addEventListener('resize', resizeNoise);
+      resizeNoise();
+    }
 
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
+    // Bi-Directional Text Roller Controller
+    const followTxt = document.getElementById('followTxt');
+    const defaultText = followTxt.textContent;
+    const socialButtons = document.querySelectorAll('.social-btn');
+    let rollTimeout = null;
 
-        const baseBg = "#f6f0e8";
-        
-        const blobs = [
-            { r: 248, g: 185, b: 140, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
-            { r: 255, g: 205, b: 160, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
-            { r: 242, g: 170, b: 120, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
-            { r: 252, g: 215, b: 185, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
-        ];
+    function rollText(newText, direction = 'up') {
+      if (followTxt.textContent === newText) return;
+      clearTimeout(rollTimeout);
 
-        function render() {
-            angle += 0.015;
+      followTxt.className = 'follow-txt';
 
-            ctx.fillStyle = baseBg;
-            ctx.fillRect(0, 0, width, height);
+      if (direction === 'up') {
+        followTxt.classList.add('roll-out-up');
+        rollTimeout = setTimeout(() => {
+          followTxt.textContent = newText;
+          followTxt.className = 'follow-txt prepare-bottom';
+          void followTxt.offsetWidth;
+          followTxt.className = 'follow-txt';
+        }, 140);
+      } else {
+        followTxt.classList.add('roll-out-down');
+        rollTimeout = setTimeout(() => {
+          followTxt.textContent = newText;
+          followTxt.className = 'follow-txt prepare-top';
+          void followTxt.offsetWidth;
+          followTxt.className = 'follow-txt';
+        }, 140);
+      }
+    }
 
-            const centerX = width / 2;
-            const centerY = height / 2;
+    socialButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const hoverText = btn.getAttribute('data-hover');
+        if (hoverText) rollText(hoverText, 'up');
+      });
 
-            blobs.forEach((blob) => {
-                const currentAngle = angle * (blob.speed / 0.015) + blob.phase;
-                
-                const x = centerX + Math.cos(currentAngle) * (radius * blob.orbitR) + Math.sin(angle * 1.5) * 50;
-                const y = centerY + Math.sin(currentAngle * 0.8) * (radius * blob.orbitR * 0.8) + Math.cos(angle * 1.2) * 50;
-                const currentRadius = radius * blob.sizeMult * (1 + Math.sin(angle * 2 + blob.phase) * 0.12);
-
-                const grad = ctx.createRadialGradient(x, y, 0, x, y, currentRadius);
-                grad.addColorStop(0, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a})`);
-                grad.addColorStop(0.4, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a * 0.4})`);
-                grad.addColorStop(1, `rgba(${blob.r}, ${blob.g}, ${blob.b}, 0)`);
-
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(x, y, currentRadius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
-            requestAnimationFrame(render);
-        }
-
-        render();
-
-        // Noise overlay generator
-        const noiseCanvas = document.getElementById('noiseCanvas');
-        if (noiseCanvas) {
-            const nCtx = noiseCanvas.getContext('2d');
-            function resizeNoise() {
-                noiseCanvas.width = window.innerWidth;
-                noiseCanvas.height = window.innerHeight;
-                generateNoise();
-            }
-            function generateNoise() {
-                const imgData = nCtx.createImageData(noiseCanvas.width, noiseCanvas.height);
-                const buffer = new Uint32Array(imgData.data.buffer);
-                for (let i = 0; i < buffer.length; i++) {
-                    if (Math.random() < 0.5) {
-                        buffer[i] = 0xff000000;
-                    }
-                }
-                nCtx.putImageData(imgData, 0, 0);
-            }
-            window.addEventListener('resize', resizeNoise);
-            resizeNoise();
-        }
-
-        const followTxt = document.getElementById('followTxt');
-const defaultText = followTxt.textContent;
-const socialButtons = document.querySelectorAll('.social-btn');
-
-socialButtons.forEach(btn => {
-  btn.addEventListener('mouseenter', () => {
-    const hoverText = btn.getAttribute('data-hover');
-    if (!hoverText) return;
-    
-    followTxt.classList.add('fading');
-    setTimeout(() => {
-      followTxt.textContent = hoverText;
-      followTxt.classList.remove('fading');
-    }, 150);
-  });
-
-  btn.addEventListener('mouseleave', () => {
-    followTxt.classList.add('fading');
-    setTimeout(() => {
-      followTxt.textContent = defaultText;
-      followTxt.classList.remove('fading');
-    }, 150);
-  });
-});
-        
-    </script>
+      btn.addEventListener('mouseleave', () => {
+        rollText(defaultText, 'down');
+      });
+    });
+  </script>
 </body>
 </html>
