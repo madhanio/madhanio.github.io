@@ -209,6 +209,18 @@
         .email-link:hover {
             opacity: 0.7;
         }
+
+        .site-footer {
+          position: absolute;
+          bottom: 24px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 0.85rem;
+          letter-spacing: 0.04em;
+          color: rgba(0, 0, 0, 0.45);
+          font-weight: 500;
+          pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -242,7 +254,13 @@
         </div>
     </main>
 
+    <footer class="site-footer">
+        <p>© <span id="year"></span> Madhan</p>
+    </footer>
+
     <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        
         // High Performance Rotating Canvas Fluid Gradient
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
