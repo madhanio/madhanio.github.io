@@ -7,15 +7,15 @@
   
   <!-- SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230d0d0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2310b981'/%3E%3C/svg%3E">
-  
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  
+
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
     * {
       margin: 0;
@@ -79,6 +79,95 @@
       align-items: center;
     }
 
+    /* Badge & Cat Wrapper */
+    .badge-wrapper {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* CAT STAGE (Clips lower body) */
+    .cat-stage {
+      width: 120px;
+      height: 75px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      margin-bottom: -6px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* CAT */
+    .cat-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      cursor: none;
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .cat-stage:hover .cat-wrapper,
+    .cat-wrapper:hover {
+      transform: translateY(50px);
+    }
+
+    .cat-wrapper img.cat-body {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .eyes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .eye {
+      position: absolute;
+      width: 17.5%;
+      height: 17.5%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+    }
+
+    .eye.left  { top: 33.5%; left: 25%; }
+    .eye.right { top: 33.5%; left: 56%; }
+
+    .pupil {
+      position: absolute;
+      width: 60%;
+      height: 60%;
+      border-radius: 50%;
+      background: #111;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s linear;
+    }
+
+    .pupil::after {
+      content: '';
+      position: absolute;
+      top: 15%;
+      right: 18%;
+      width: 32%;
+      height: 32%;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
     /* Top Brand Pill Badge */
     .brand-badge {
       display: inline-flex;
@@ -96,9 +185,38 @@
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 999px;
-      margin-bottom: 1.5rem;
       box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      position: relative;
+      z-index: 2;
     }
+
+    /* Cat Paws Resting on Pill */
+    .paw {
+      position: absolute;
+      top: -6px;
+      width: 15px;
+      height: 11px;
+      background: #111111;
+      border-radius: 8px 8px 4px 4px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .paw::after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 7px;
+      height: 2.5px;
+      border-left: 1.5px solid #f6f0e8;
+      border-right: 1.5px solid #f6f0e8;
+      opacity: 0.8;
+    }
+
+    .paw.left  { left: 33px; }
+    .paw.right { right: 33px; }
 
     .status-dot {
       width: 7px;
@@ -109,6 +227,14 @@
       position: relative;
       top: -1px;
       box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    }
+
+    /* HIDE CAT & PAWS ON MOBILE AND TOUCH DEVICES */
+    @media (max-width: 768px), (hover: none) {
+      .cat-stage,
+      .paw {
+        display: none !important;
+      }
     }
 
     /* Headline Title */
@@ -161,18 +287,16 @@
       color: #444444;
       display: inline-block;
       white-space: nowrap;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-                  opacity 0.22s ease, 
-                  filter 0.22s ease;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease, filter 0.22s ease;
       will-change: transform, opacity, filter;
     }
 
-    /* Roll UP (Hover In) */
     .follow-txt.roll-out-up {
       transform: translateY(-110%);
       opacity: 0;
       filter: blur(2px);
     }
+
     .follow-txt.prepare-bottom {
       transition: none !important;
       transform: translateY(110%);
@@ -180,12 +304,12 @@
       filter: blur(2px);
     }
 
-    /* Roll DOWN (Hover Out / Return) */
     .follow-txt.roll-out-down {
       transform: translateY(110%);
       opacity: 0;
       filter: blur(2px);
     }
+
     .follow-txt.prepare-top {
       transition: none !important;
       transform: translateY(-110%);
@@ -211,9 +335,7 @@
       align-items: center;
       text-decoration: none;
       font-size: 1.25rem;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                  background-color 0.2s ease, 
-                  box-shadow 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.25s ease;
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
 
@@ -227,7 +349,7 @@
       transform: translateY(0) scale(0.96);
     }
 
-    /* Elegant Underlined Email CTA */
+    /* Underlined Email CTA */
     .email-link {
       display: inline-block;
       font-size: clamp(0.95rem, 1.4vw, 1.1rem);
@@ -270,8 +392,24 @@
 
   <!-- Main Content Overlay -->
   <main class="content">
-    <div class="brand-badge">
-      <span class="status-dot"></span>Madhan Adepu
+    
+    <!-- Top Pill + Cat Group -->
+    <div class="badge-wrapper">
+      <div class="cat-stage">
+        <div class="cat-wrapper" id="cat">
+          <img class="cat-body" src="cat-image.png" alt="A curious black cat" />
+          <div class="eyes">
+            <div class="eye left"><div class="pupil" id="pupilL"></div></div>
+            <div class="eye right"><div class="pupil" id="pupilR"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brand-badge">
+        <span class="paw left"></span>
+        <span class="paw right"></span>
+        <span class="status-dot"></span>Madhan Adepu
+      </div>
     </div>
 
     <h1 class="title">Cooking up<br>some shit!</h1>
@@ -304,6 +442,7 @@
   </footer>
 
   <script>
+    // Footer Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // High Performance Rotating Canvas Fluid Gradient
@@ -380,6 +519,34 @@
       resizeNoise();
     }
 
+    // Eye Tracking Logic
+    const cat = document.getElementById('cat');
+    const pupils = [document.getElementById('pupilL'), document.getElementById('pupilR')];
+    const eyes = cat ? cat.querySelectorAll('.eye') : [];
+    const MAX_PX = 2.5;
+
+    function trackEyes(cx, cy) {
+      if (!eyes.length) return;
+      eyes.forEach((eye, i) => {
+        const rect = eye.getBoundingClientRect();
+        const eyeCx = rect.left + rect.width / 2;
+        const eyeCy = rect.top + rect.height / 2;
+        const angle = Math.atan2(cy - eyeCy, cx - eyeCx);
+        const dist = Math.min(MAX_PX, Math.hypot(cx - eyeCx, cy - eyeCy) / 18);
+        pupils[i].style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px))`;
+      });
+    }
+
+    document.addEventListener('mousemove', e => trackEyes(e.clientX, e.clientY));
+
+    if (cat) {
+      cat.addEventListener('mouseleave', () => {
+        pupils.forEach(p => {
+          if (p) p.style.transform = 'translate(-50%, -50%)';
+        });
+      });
+    }
+
     // Bi-Directional Text Roller Controller
     const followTxt = document.getElementById('followTxt');
     const defaultText = followTxt.textContent;
@@ -389,7 +556,6 @@
     function rollText(newText, direction = 'up') {
       if (followTxt.textContent === newText) return;
       clearTimeout(rollTimeout);
-
       followTxt.className = 'follow-txt';
 
       if (direction === 'up') {
@@ -416,7 +582,6 @@
         const hoverText = btn.getAttribute('data-hover');
         if (hoverText) rollText(hoverText, 'up');
       });
-
       btn.addEventListener('mouseleave', () => {
         rollText(defaultText, 'down');
       });
