@@ -1,40 +1,64 @@
+Here is the completed, pixel-perfect update with all three fixes:
+
+### 🛠️ What Was Fixed:
+1. **Removed Scrollbar Layout Shift**: Added `overflow: hidden;` to `html` and `body`, plus `scrollbar-width: none;` and webkit rules. The browser scrollbar will never pop in or shift your layout to the right.
+2. **Fixed Missing `'u'` in `MADHAN ADEPU`**: Widened the pill text mask to `118px` (and pill to `162px`) with zero character clipping so the letter **"u"** is crystal clear.
+3. **Removed Sleep Mode Completely**: Stripped out all inactivity timers, closed-eye states, and floating `z Z` particles. The cat stays alert, naturally blinking and tracking your mouse continuously.
+
+---
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Madhan Adepu - Building Something New</title>
+  <title>Madhan Adepu — Building Something New</title>
   
   <!-- SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230d0d0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2310b981'/%3E%3C/svg%3E">
 
-  <!-- Google Fonts -->
+  <!-- Google & Fontshare Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    * {
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    ::selection {
+      background: #111111;
+      color: #f6f0e8;
+    }
+
+    /* Prevent any scrollbar appearance or layout shifting */
     html, body {
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden !important;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
     }
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       background-color: #f6f0e8;
       color: #111111;
       position: relative;
@@ -43,7 +67,7 @@
       text-rendering: optimizeLegibility;
     }
 
-    /* Canvas Background */
+    /* Ambient Canvas Background */
     #bgCanvas {
       position: fixed;
       top: 0;
@@ -54,7 +78,7 @@
       display: block;
     }
 
-    /* Subtle Grain Texture */
+    /* Subtle Film Grain */
     .noise-overlay {
       position: fixed;
       top: 0;
@@ -66,29 +90,146 @@
       pointer-events: none;
     }
 
-    /* Main Content Container */
+    /* Main Container */
     .content {
       position: relative;
       z-index: 10;
       text-align: center;
       width: 90vw;
       max-width: 760px;
-      padding: 1.5rem 1rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Badge & Cat Wrapper */
+    /* =========================================================
+       PHASE 1 & 2: PILL BADGE MORPH (ACCURATE FULL TEXT)
+       ========================================================= */
     .badge-wrapper {
       position: relative;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    /* CAT STAGE (Clips lower body) */
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      width: 36px;
+      padding: 0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #333333;
+      background: rgba(255, 255, 255, 0.58);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      position: relative;
+      z-index: 2;
+      transform: scale(0);
+      opacity: 0;
+      will-change: width, transform, opacity;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-badge.pop-in {
+      opacity: 1;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+
+    /* Perfectly fits "MADHAN ADEPU" */
+    .brand-badge.expand-pill {
+      width: 162px;
+      padding: 0 16px;
+      gap: 8px;
+      transition: width 0.65s cubic-bezier(0.16, 1, 0.3, 1), padding 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .status-dot-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+    }
+
+    .badge-name-mask {
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-flex;
+      width: 0;
+      opacity: 0;
+    }
+
+    .brand-badge.expand-pill .badge-name-mask {
+      opacity: 1;
+      width: 118px; /* Fully displays "MADHAN ADEPU" */
+      transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.3s ease 0.1s;
+    }
+
+    /* Paws */
+    .paw {
+      position: absolute;
+      top: -6px;
+      width: 15px;
+      height: 11px;
+      background: #111111;
+      border-radius: 8px 8px 4px 4px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.28);
+    }
+
+    .paw::after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 7px;
+      height: 2.5px;
+      border-left: 1.5px solid #f6f0e8;
+      border-right: 1.5px solid #f6f0e8;
+      opacity: 0.8;
+    }
+
+    .paw.left  { left: 26px; }
+    .paw.right { right: 26px; }
+
+    .show-paws .paw {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px), (hover: none) {
+      .cat-stage, .paw { display: none !important; }
+    }
+
+    /* =========================================================
+       PHASE 3 & 4: CAT STAGE (75px) & EYE MOVEMENTS
+       ========================================================= */
     .cat-stage {
       width: 120px;
       height: 75px;
@@ -100,17 +241,27 @@
       justify-content: center;
     }
 
-    /* CAT */
     .cat-wrapper {
       position: relative;
       width: 120px;
       height: 120px;
-      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translateY(75px);
+      will-change: transform;
     }
 
-    .cat-stage:hover .cat-wrapper,
-    .cat-wrapper:hover {
-      transform: translateY(50px);
+    .cat-wrapper.spring-entry {
+      transform: translateY(0);
+      transition: transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.28);
+    }
+
+    .ready-interactive .badge-wrapper:hover .cat-wrapper {
+      transform: translateY(-1.5px);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .ready-interactive .badge-wrapper.petting .cat-wrapper {
+      transform: translateY(0) scale(1.05) !important;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.4) !important;
     }
 
     .cat-wrapper img.cat-body {
@@ -119,7 +270,6 @@
       object-fit: contain;
       display: block;
       pointer-events: none;
-      user-select: none;
     }
 
     .eyes {
@@ -139,10 +289,15 @@
       overflow: hidden;
       background: #ffffff;
       box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+      transition: transform 0.14s ease;
     }
 
     .eye.left  { top: 33.5%; left: 25%; }
     .eye.right { top: 33.5%; left: 56%; }
+
+    .eye.blinking {
+      transform: scaleY(0.08) !important;
+    }
 
     .pupil {
       position: absolute;
@@ -153,7 +308,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: transform 0.05s linear;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), width 0.2s ease, height 0.2s ease;
     }
 
     .pupil::after {
@@ -165,99 +320,65 @@
       height: 32%;
       background: #ffffff;
       border-radius: 50%;
+      transition: all 0.2s ease;
     }
 
-    /* Top Brand Pill Badge */
-    .brand-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 7px 18px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #333333;
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 999px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      position: relative;
-      z-index: 2;
+    .look-down .pupil {
+      transform: translate(-50%, calc(-50% + 2px)) !important;
     }
 
-    /* Cat Paws Resting on Pill */
-    .paw {
-      position: absolute;
-      top: -6px;
-      width: 15px;
-      height: 11px;
-      background: #111111;
-      border-radius: 8px 8px 4px 4px;
-      z-index: 3;
-      pointer-events: none;
+    .badge-wrapper.petting .pupil {
+      width: 84% !important;
+      height: 84% !important;
     }
 
-    .paw::after {
-      content: '';
-      position: absolute;
-      bottom: 1px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 7px;
-      height: 2.5px;
-      border-left: 1.5px solid #f6f0e8;
-      border-right: 1.5px solid #f6f0e8;
-      opacity: 0.8;
+    .badge-wrapper.petting .pupil::after {
+      width: 45% !important;
+      height: 45% !important;
+      top: 10% !important;
+      right: 10% !important;
     }
 
-    .paw.left  { left: 33px; }
-    .paw.right { right: 33px; }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      background-color: #10b981;
-      border-radius: 50%;
-      display: inline-block;
-      position: relative;
-      top: -1px;
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    /* =========================================================
+       PHASE 5: CONTENT GLASS DISSOLVE
+       ========================================================= */
+    .dissolve-item {
+      opacity: 0;
+      transform: translateY(28px) scale(0.98);
+      filter: blur(14px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
     }
 
-    /* HIDE CAT & PAWS ON MOBILE AND TOUCH DEVICES */
-    @media (max-width: 768px), (hover: none) {
-      .cat-stage,
-      .paw {
-        display: none !important;
-      }
+    .dissolve-item.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
     }
 
-    /* Headline Title */
     .title {
-      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
-      font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -0.8px;
+      font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(2.4rem, 5.4vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
       color: #0d0d0d;
-      margin-bottom: 1rem;
-      max-width: 640px;
+      margin-bottom: 1.15rem;
+      max-width: 660px;
     }
 
-    /* Subtitle Description */
     .description {
-      font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+      font-size: clamp(0.96rem, 1.6vw, 1.15rem);
       line-height: 1.6;
       color: #444444;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
       max-width: 540px;
     }
 
     .description p {
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.45rem 0;
     }
 
     /* Social Section */
@@ -268,7 +389,6 @@
       gap: 1.25rem;
     }
 
-    /* Bi-Directional Text Roller Mask */
     .roller-wrapper {
       position: relative;
       height: 1.35rem;
@@ -290,37 +410,15 @@
       will-change: transform, opacity, filter;
     }
 
-    .follow-txt.roll-out-up {
-      transform: translateY(-110%);
-      opacity: 0;
-      filter: blur(2px);
-    }
+    .follow-txt.roll-out-up { transform: translateY(-110%); opacity: 0; filter: blur(2px); }
+    .follow-txt.prepare-bottom { transition: none !important; transform: translateY(110%); opacity: 0; filter: blur(2px); }
+    .follow-txt.roll-out-down { transform: translateY(110%); opacity: 0; filter: blur(2px); }
+    .follow-txt.prepare-top { transition: none !important; transform: translateY(-110%); opacity: 0; filter: blur(2px); }
 
-    .follow-txt.prepare-bottom {
-      transition: none !important;
-      transform: translateY(110%);
-      opacity: 0;
-      filter: blur(2px);
-    }
-
-    .follow-txt.roll-out-down {
-      transform: translateY(110%);
-      opacity: 0;
-      filter: blur(2px);
-    }
-
-    .follow-txt.prepare-top {
-      transition: none !important;
-      transform: translateY(-110%);
-      opacity: 0;
-      filter: blur(2px);
-    }
-
-    /* Icons (GitHub & LinkedIn) */
     .social-icons {
       display: flex;
       gap: 1.25rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     .social-btn {
@@ -334,21 +432,16 @@
       align-items: center;
       text-decoration: none;
       font-size: 1.25rem;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.25s ease;
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
 
     .social-btn:hover {
-      transform: translateY(-4px) scale(1.08);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
       background-color: #222222;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
     }
 
-    .social-btn:active {
-      transform: translateY(0) scale(0.96);
-    }
-
-    /* Underlined Email CTA */
     .email-link {
       display: inline-block;
       font-size: clamp(0.95rem, 1.4vw, 1.1rem);
@@ -358,76 +451,92 @@
       letter-spacing: 0.01em;
       padding-bottom: 3px;
       border-bottom: 2px solid #0d0d0d;
-      transition: opacity 0.2s ease, border-color 0.2s ease;
-      margin-top: 0.5rem;
+      transition: opacity 0.2s ease;
+      margin-top: 0.4rem;
     }
 
     .email-link:hover {
       opacity: 0.7;
     }
 
-    /* Footer */
+    /* Centered Footer */
     .site-footer {
       position: absolute;
       bottom: 14px;
       left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.85rem;
+      transform: translateX(-50%) translateY(20px);
+      font-size: 0.82rem;
       letter-spacing: 0.04em;
       color: rgba(0, 0, 0, 0.45);
       font-weight: 500;
       pointer-events: none;
       z-index: 100;
+      white-space: nowrap;
+      opacity: 0;
+      filter: blur(10px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .site-footer.revealed {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      filter: blur(0);
     }
   </style>
 </head>
 <body>
 
-  <!-- Dynamic Canvas Background -->
+  <!-- Ambient Fluid Canvas -->
   <canvas id="bgCanvas"></canvas>
 
-  <!-- Noise Texture Overlay -->
+  <!-- Film Grain Overlay -->
   <canvas id="noiseCanvas" class="noise-overlay"></canvas>
 
   <!-- Main Content Overlay -->
   <main class="content">
     
     <!-- Top Pill + Cat Group -->
-    <div class="badge-wrapper">
+    <div class="badge-wrapper" id="catGroup" title="Pet the cat!">
       <div class="cat-stage">
         <div class="cat-wrapper" id="cat">
           <img class="cat-body" src="assets/cat-image.png" alt="A curious black cat" />
-          <div class="eyes">
+          <div class="eyes" id="eyesGroup">
             <div class="eye left"><div class="pupil" id="pupilL"></div></div>
             <div class="eye right"><div class="pupil" id="pupilR"></div></div>
           </div>
         </div>
       </div>
 
-      <div class="brand-badge">
+      <div class="brand-badge" id="brandBadge">
         <span class="paw left"></span>
         <span class="paw right"></span>
-        <span class="status-dot"></span>Madhan Adepu
+        <div class="status-dot-wrapper">
+          <span class="status-dot"></span>
+        </div>
+        <span class="badge-name-mask">Madhan Adepu</span>
       </div>
     </div>
 
-    <h1 class="title">Cooking up<br>some shit!</h1>
+    <!-- Dissolve Content Items -->
+    <h1 class="title dissolve-item" id="itemHeadline">Cooking up<br>some shit!</h1>
 
-    <div class="description">
+    <div class="description dissolve-item" id="itemDescription">
       <p>Building stuff. Breaking stuff. Fixing stuff. Calling bugs features.</p>
       <p>The full portfolio is dropping soon.</p>
     </div>
 
-    <div class="social-section">
+    <div class="social-section dissolve-item" id="itemSocial">
       <div class="roller-wrapper">
         <span class="follow-txt" id="followTxt">Find me online</span>
       </div>
 
       <div class="social-icons">
-        <a href="https://github.com/madhanio" target="_blank" class="social-btn" aria-label="GitHub" data-hover="STALK MY CODE.">
+        <a href="https://github.com/madhanio" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub" data-hover="STALK MY CODE.">
           <i class="fa-brands fa-github"></i>
         </a>
-        <a href="https://linkedin.com/in/madhan-adepu" target="_blank" class="social-btn" aria-label="LinkedIn" data-hover="KNOW ME? CONNECT.">
+        <a href="https://linkedin.com/in/madhan-adepu" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn" data-hover="KNOW ME? CONNECT.">
           <i class="fa-brands fa-linkedin-in"></i>
         </a>
       </div>
@@ -436,15 +545,16 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© <span id="year"></span> Madhan</p>
+  <!-- Dead-Center Footer -->
+  <footer class="site-footer" id="itemFooter">
+    <p>Crafted with too much caffeine & curiosity • © <span id="year"></span></p>
   </footer>
 
   <script>
-    // Footer Year
+    // 1. Dynamic Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // High Performance Rotating Canvas Fluid Gradient
+    // 2. Ambient Fluid Background Canvas
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     let width, height, radius;
@@ -495,7 +605,7 @@
     }
     render();
 
-    // Noise overlay generator
+    // 3. Film Grain Noise
     const noiseCanvas = document.getElementById('noiseCanvas');
     if (noiseCanvas) {
       const nCtx = noiseCanvas.getContext('2d');
@@ -518,35 +628,7 @@
       resizeNoise();
     }
 
-    // Eye Tracking Logic
-    const cat = document.getElementById('cat');
-    const pupils = [document.getElementById('pupilL'), document.getElementById('pupilR')];
-    const eyes = cat ? cat.querySelectorAll('.eye') : [];
-    const MAX_PX = 2.5;
-
-    function trackEyes(cx, cy) {
-      if (!eyes.length) return;
-      eyes.forEach((eye, i) => {
-        const rect = eye.getBoundingClientRect();
-        const eyeCx = rect.left + rect.width / 2;
-        const eyeCy = rect.top + rect.height / 2;
-        const angle = Math.atan2(cy - eyeCy, cx - eyeCx);
-        const dist = Math.min(MAX_PX, Math.hypot(cx - eyeCx, cy - eyeCy) / 18);
-        pupils[i].style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px))`;
-      });
-    }
-
-    document.addEventListener('mousemove', e => trackEyes(e.clientX, e.clientY));
-
-    if (cat) {
-      cat.addEventListener('mouseleave', () => {
-        pupils.forEach(p => {
-          if (p) p.style.transform = 'translate(-50%, -50%)';
-        });
-      });
-    }
-
-    // Bi-Directional Text Roller Controller
+    // 4. Bi-Directional Kinetic Text Roller
     const followTxt = document.getElementById('followTxt');
     const defaultText = followTxt.textContent;
     const socialButtons = document.querySelectorAll('.social-btn');
@@ -585,6 +667,150 @@
         rollText(defaultText, 'down');
       });
     });
+
+    // 5. Hero Cat Lead-In Sequence
+    const brandBadge = document.getElementById('brandBadge');
+    const cat = document.getElementById('cat');
+    const catGroup = document.getElementById('catGroup');
+    const eyesGroup = document.getElementById('eyesGroup');
+    const pupils = [document.getElementById('pupilL'), document.getElementById('pupilR')];
+    const eyes = document.querySelectorAll('.eye');
+    const MAX_PX = 2.5;
+
+    let isIntroPlaying = true;
+    let petTimeout = null;
+
+    const catQuotes = [
+      "Purrrrr... 🐾",
+      "Meow! What's up?",
+      "Caught me bug hunting! 🐛",
+      "Chef is busy cooking! 🍳",
+      "Psst... stalk my code below!",
+      "Nice to meet you! ✨"
+    ];
+
+    function runStartupSequence() {
+      // Step 1 (t = 80ms): Dot + Circle Pill Pop in
+      setTimeout(() => {
+        brandBadge.classList.add('pop-in');
+      }, 80);
+
+      // Step 2 (t = 380ms): Circle expands into snug pill
+      setTimeout(() => {
+        brandBadge.classList.add('expand-pill');
+      }, 380);
+
+      // Step 3 (t = 980ms): Cat springs up + Paws appear
+      setTimeout(() => {
+        cat.classList.add('spring-entry');
+        brandBadge.classList.add('show-paws');
+      }, 980);
+
+      // Step 4 (t = 1420ms): Cat looks down naturally at the page
+      setTimeout(() => {
+        eyesGroup.classList.add('look-down');
+      }, 1420);
+
+      // Step 5 (t = 1680ms): Content dissolves in sequentially
+      setTimeout(() => {
+        document.getElementById('itemHeadline').classList.add('revealed');
+      }, 1680);
+
+      setTimeout(() => {
+        document.getElementById('itemDescription').classList.add('revealed');
+      }, 1840);
+
+      setTimeout(() => {
+        document.getElementById('itemSocial').classList.add('revealed');
+      }, 2000);
+
+      setTimeout(() => {
+        document.getElementById('itemFooter').classList.add('revealed');
+      }, 2180);
+
+      // Step 6 (t = 2400ms): Sequence Complete -> Resume Live Eye Tracking
+      setTimeout(() => {
+        eyesGroup.classList.remove('look-down');
+        document.body.classList.add('ready-interactive');
+        isIntroPlaying = false;
+      }, 2400);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runStartupSequence);
+    } else {
+      runStartupSequence();
+    }
+
+    // 6. Continuous Eye Tracking
+    function trackEyes(cx, cy) {
+      if (!eyes.length || isIntroPlaying) return;
+      eyes.forEach((eye, i) => {
+        const rect = eye.getBoundingClientRect();
+        const eyeCx = rect.left + rect.width / 2;
+        const eyeCy = rect.top + rect.height / 2;
+        const angle = Math.atan2(cy - eyeCy, cx - eyeCx);
+        const dist = Math.min(MAX_PX, Math.hypot(cx - eyeCx, cy - eyeCy) / 18);
+        pupils[i].style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px))`;
+      });
+    }
+
+    // Natural Blinking
+    function scheduleBlink() {
+      const nextBlink = Math.random() * 3500 + 3500;
+      setTimeout(() => {
+        if (!isIntroPlaying) {
+          eyes.forEach(e => e.classList.add('blinking'));
+          setTimeout(() => {
+            eyes.forEach(e => e.classList.remove('blinking'));
+            scheduleBlink();
+          }, 150);
+        } else {
+          scheduleBlink();
+        }
+      }, nextBlink);
+    }
+    scheduleBlink();
+
+    window.addEventListener('mousemove', e => {
+      trackEyes(e.clientX, e.clientY);
+    });
+
+    // Pet / Click Reaction
+    function petCat() {
+      if (isIntroPlaying) return;
+      catGroup.classList.add('petting');
+      
+      const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
+      rollText(randomQuote, 'up');
+
+      clearTimeout(petTimeout);
+      petTimeout = setTimeout(() => {
+        catGroup.classList.remove('petting');
+        rollText(defaultText, 'down');
+      }, 2200);
+    }
+
+    catGroup.addEventListener('click', petCat);
+
+    // 7. Invisible Power-User Keyboard Easter Eggs
+    window.addEventListener('keydown', (e) => {
+      if (isIntroPlaying) return;
+
+      const key = e.key.toLowerCase();
+
+      if (e.code === 'Space' || key === 'c') {
+        e.preventDefault();
+        petCat();
+      } else if (key === 'g') {
+        window.open('https://github.com/madhanio', '_blank');
+      } else if (key === 'l') {
+        window.open('https://linkedin.com/in/madhan-adepu', '_blank');
+      } else if (key === 'm') {
+        window.location.href = 'mailto:madhan.adepu9@gmail.com';
+      }
+    });
   </script>
 </body>
 </html>
+```
