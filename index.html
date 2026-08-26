@@ -846,6 +846,12 @@ function runStartupSequence() {
         window.location.href = 'mailto:madhan.adepu9@gmail.com';
       }
     });
+    // Start the animation sequence
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runStartupSequence);
+} else {
+  runStartupSequence();
+}
   </script>
 </body>
 </html>
