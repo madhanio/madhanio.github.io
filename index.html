@@ -577,42 +577,67 @@
     window.addEventListener('resize', initCanvas);
     initCanvas();
 
-    const baseBg = "#f6f0e8";
-    const blobs = [
-      { r: 248, g: 185, b: 140, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
-      { r: 255, g: 205, b: 160, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
-      { r: 242, g: 170, b: 120, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
-      { r: 252, g: 215, b: 185, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
-    ];
+const baseBg = "#f6f0e8";
+  const blobs = [
+    { r: 248, g: 185, b: 140, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
+    { r: 255, g: 205, b: 160, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
+    { r: 242, g: 170, b: 120, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
+    { r: 252, g: 215, b: 185, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
+  ];
 
-    function render() {
-      angle += 0.015;
-      ctx.fillStyle = baseBg;
-      ctx.fillRect(0, 0, width, height);
+  let animating = false;
+  let idleTimeout = null;
 
-      const centerX = width / 2;
-      const centerY = height / 2;
+  function render() {
+    angle += 0.015;
+    ctx.fillStyle = baseBg;
+    ctx.fillRect(0, 0, width, height);
 
-      blobs.forEach((blob) => {
-        const currentAngle = angle * (blob.speed / 0.015) + blob.phase;
-        const x = centerX + Math.cos(currentAngle) * (radius * blob.orbitR) + Math.sin(angle * 1.5) * 50;
-        const y = centerY + Math.sin(currentAngle * 0.8) * (radius * blob.orbitR * 0.8) + Math.cos(angle * 1.2) * 50;
-        const currentRadius = radius * blob.sizeMult * (1 + Math.sin(angle * 2 + blob.phase) * 0.12);
+    const centerX = width / 2;
+    const centerY = height / 2;
 
-        const grad = ctx.createRadialGradient(x, y, 0, x, y, currentRadius);
-        grad.addColorStop(0, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a})`);
-        grad.addColorStop(0.4, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a * 0.4})`);
-        grad.addColorStop(1, `rgba(${blob.r}, ${blob.g}, ${blob.b}, 0)`);
+    blobs.forEach((blob) => {
+      const currentAngle = angle * (blob.speed / 0.015) + blob.phase;
+      const x = centerX + Math.cos(currentAngle) * (radius * blob.orbitR) + Math.sin(angle * 1.5) * 50;
+      const y = centerY + Math.sin(currentAngle * 0.8) * (radius * blob.orbitR * 0.8) + Math.cos(angle * 1.2) * 50;
+      const currentRadius = radius * blob.sizeMult * (1 + Math.sin(angle * 2 + blob.phase) * 0.12);
 
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(x, y, currentRadius, 0, Math.PI * 2);
-        ctx.fill();
-      });
+      const grad = ctx.createRadialGradient(x, y, 0, x, y, currentRadius);
+      grad.addColorStop(0, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a})`);
+      grad.addColorStop(0.4, `rgba(${blob.r}, ${blob.g}, ${blob.b}, ${blob.a * 0.4})`);
+      grad.addColorStop(1, `rgba(${blob.r}, ${blob.g}, ${blob.b}, 0)`);
 
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, currentRadius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    if (animating) {
       requestAnimationFrame(render);
     }
-    render();
+  }
+
+  function kickCanvas() {
+    if (!animating) {
+      animating = true;
+      requestAnimationFrame(render);
+    }
+    clearTimeout(idleTimeout);
+    idleTimeout = setTimeout(() => {
+      animating = false;
+    }, 3000);
+  }
+
+  // Animate during startup, then pause
+  animating = true;
+  requestAnimationFrame(render);
+  setTimeout(() => {
+    animating = false;
+  }, 3500);
+
+  window.addEventListener('mousemove', kickCanvas, { passive: true });
+  window.addEventListener('touchmove', kickCanvas, { passive: true });
 
     // 3. Film Grain Noise
     const noiseCanvas = document.getElementById('noiseCanvas');
@@ -698,71 +723,73 @@
       "Nice to meet you! ✨"
     ];
 
-    function runStartupSequence() {
-      // Step 1 (t = 80ms): Dot + Circle Pill Pop in
-      setTimeout(() => {
-        brandBadge.classList.add('pop-in');
-      }, 80);
+    const isMobile = window.matchMedia('(max-width: 768px)').matches || window.matchMedia('(hover: none)').matches;
+  let eyeRects = [];
 
-      // Step 2 (t = 380ms): Circle expands into snug pill
-      setTimeout(() => {
-        brandBadge.classList.add('expand-pill');
-      }, 380);
+  function cacheEyeRects() {
+    eyeRects = Array.from(eyes).map(eye => eye.getBoundingClientRect());
+  }
+  window.addEventListener('resize', cacheEyeRects);
 
-      // Step 3 (t = 980ms): Cat springs up + Paws appear
-      setTimeout(() => {
-        cat.classList.add('spring-entry');
-        brandBadge.classList.add('show-paws');
-      }, 980);
-
-      // Step 4 (t = 1420ms): Cat looks down naturally at the page
-      setTimeout(() => {
-        eyesGroup.classList.add('look-down');
-      }, 1420);
-
-      // Step 5 (t = 1680ms): Content dissolves in sequentially
-      setTimeout(() => {
-        document.getElementById('itemHeadline').classList.add('revealed');
-      }, 1680);
-
-      setTimeout(() => {
-        document.getElementById('itemDescription').classList.add('revealed');
-      }, 1840);
-
-      setTimeout(() => {
-        document.getElementById('itemSocial').classList.add('revealed');
-      }, 2000);
-
-      setTimeout(() => {
-        document.getElementById('itemFooter').classList.add('revealed');
-      }, 2180);
-
-      // Step 6 (t = 2400ms): Sequence Complete -> Resume Live Eye Tracking
-      setTimeout(() => {
-        eyesGroup.classList.remove('look-down');
-        document.body.classList.add('ready-interactive');
-        isIntroPlaying = false;
-      }, 2400);
+function runStartupSequence() {
+    if (isMobile) {
+      document.getElementById('itemHeadline').classList.add('revealed');
+      document.getElementById('itemDescription').classList.add('revealed');
+      document.getElementById('itemSocial').classList.add('revealed');
+      document.getElementById('itemFooter').classList.add('revealed');
+      document.body.classList.add('ready-interactive');
+      isIntroPlaying = false;
+      cacheEyeRects();
+      return;
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', runStartupSequence);
-    } else {
-      runStartupSequence();
-    }
+    // Step 1 (t = 80ms): Dot + Circle Pill Pop in
+    setTimeout(() => {
+      brandBadge.classList.add('pop-in');
+    }, 80);
 
-    // 6. Continuous Eye Tracking
-    function trackEyes(cx, cy) {
-      if (!eyes.length || isIntroPlaying) return;
-      eyes.forEach((eye, i) => {
-        const rect = eye.getBoundingClientRect();
-        const eyeCx = rect.left + rect.width / 2;
-        const eyeCy = rect.top + rect.height / 2;
-        const angle = Math.atan2(cy - eyeCy, cx - eyeCx);
-        const dist = Math.min(MAX_PX, Math.hypot(cx - eyeCx, cy - eyeCy) / 18);
-        pupils[i].style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px))`;
-      });
-    }
+    // Step 2 (t = 380ms): Circle expands into snug pill
+    setTimeout(() => {
+      brandBadge.classList.add('expand-pill');
+    }, 380);
+
+    // Step 3 (t = 980ms): Cat springs up + Paws appear
+    setTimeout(() => {
+      cat.classList.add('spring-entry');
+      brandBadge.classList.add('show-paws');
+    }, 980);
+
+    // Step 4 (t = 1420ms): Cat looks down naturally at the page
+    setTimeout(() => {
+      eyesGroup.classList.add('look-down');
+    }, 1420);
+
+    // Step 5 (t = 1680ms): Content dissolves in sequentially
+    setTimeout(() => { document.getElementById('itemHeadline').classList.add('revealed'); }, 1680);
+    setTimeout(() => { document.getElementById('itemDescription').classList.add('revealed'); }, 1840);
+    setTimeout(() => { document.getElementById('itemSocial').classList.add('revealed'); }, 2000);
+    setTimeout(() => { document.getElementById('itemFooter').classList.add('revealed'); }, 2180);
+
+    // Step 6 (t = 2400ms): Sequence Complete -> Resume Live Eye Tracking
+    setTimeout(() => {
+      eyesGroup.classList.remove('look-down');
+      document.body.classList.add('ready-interactive');
+      isIntroPlaying = false;
+      cacheEyeRects(); // <-- Cache positions once intro completes
+    }, 2400);
+  }
+// 6. Continuous Eye Tracking (No Forced Reflow)
+  function trackEyes(cx, cy) {
+    if (!eyeRects.length || isIntroPlaying) return;
+    eyes.forEach((eye, i) => {
+      const rect = eyeRects[i];
+      const eyeCx = rect.left + rect.width / 2;
+      const eyeCy = rect.top + rect.height / 2;
+      const angle = Math.atan2(cy - eyeCy, cx - eyeCx);
+      const dist = Math.min(MAX_PX, Math.hypot(cx - eyeCx, cy - eyeCy) / 18);
+      pupils[i].style.transform = `translate(calc(-50% + ${Math.cos(angle) * dist}px), calc(-50% + ${Math.sin(angle) * dist}px))`;
+    });
+  }
 
     // Natural Blinking
     function scheduleBlink() {
