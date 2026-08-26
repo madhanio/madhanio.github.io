@@ -358,20 +358,15 @@
        PHASE 5: CONTENT GLASS DISSOLVE
        ========================================================= */
     .dissolve-item {
-      opacity: 0;
-      transform: translateY(28px) scale(0.98);
-      filter: blur(14px);
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform, filter;
-    }
-
-    .dissolve-item.revealed {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
-    }
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.dissolve-item.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
     .title {
       font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -475,30 +470,25 @@
     }
 
     /* Centered Footer */
-    .site-footer {
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      font-size: 0.82rem;
-      letter-spacing: 0.04em;
-      color: rgba(0, 0, 0, 0.45);
-      font-weight: 500;
-      pointer-events: none;
-      z-index: 100;
-      white-space: nowrap;
-      opacity: 0;
-      filter: blur(10px);
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .site-footer.revealed {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      filter: blur(0);
-    }
+.site-footer {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: rgba(0, 0, 0, 0.45);
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.site-footer.revealed {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
   </style>
 </head>
 <body>
