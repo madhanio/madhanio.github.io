@@ -33,15 +33,11 @@
 <!-- Preconnect Font CDNs -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 
-<!-- Asynchronous Non-Blocking Fonts -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<!-- Asynchronous Non-Blocking Fonts: Space Grotesk (single family, multiple weights) -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap">
 </noscript>
 
   <script defer src="https://cloud.umami.is/script.js" data-website-id="0aa4f0a9-863a-4802-86e4-a084a221dad0"></script>
@@ -54,8 +50,8 @@
     }
 
     ::selection {
-      background: #111111;
-      color: #f6f0e8;
+      background: #C8FF00;
+      color: #0A0A0A;
     }
 
     /* Prevent any scrollbar appearance or layout shifting */
@@ -74,12 +70,12 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f6f0e8;
-      color: #111111;
+      background-color: #0A0A0A;
+      color: #F2F2F0;
       position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -147,13 +143,13 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #333333;
-      background: rgba(255, 255, 255, 0.58);
+      color: #F2F2F0;
+      background: rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
       position: relative;
       z-index: 2;
       transform: scale(0);
@@ -186,10 +182,10 @@
     .status-dot {
       width: 7px;
       height: 7px;
-      background-color: #10b981;
+      background-color: #C8FF00;
       border-radius: 50%;
       display: inline-block;
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+      box-shadow: 0 0 8px rgba(200, 255, 0, 0.7);
     }
 
     .badge-name-mask {
@@ -212,7 +208,7 @@
       top: -6px;
       width: 15px;
       height: 11px;
-      background: #111111;
+      background: #F2F2F0;
       border-radius: 8px 8px 4px 4px;
       z-index: 3;
       pointer-events: none;
@@ -229,8 +225,8 @@
       transform: translateX(-50%);
       width: 7px;
       height: 2.5px;
-      border-left: 1.5px solid #f6f0e8;
-      border-right: 1.5px solid #f6f0e8;
+      border-left: 1.5px solid #0A0A0A;
+      border-right: 1.5px solid #0A0A0A;
       opacity: 0.8;
     }
 
@@ -323,7 +319,7 @@
       width: 60%;
       height: 60%;
       border-radius: 50%;
-      background: #111;
+      background: #0A0A0A;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -373,12 +369,12 @@
 }
 
     .title {
-      font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: clamp(2.4rem, 5.4vw, 3.8rem);
-      font-weight: 900;
+      font-weight: 800;
       line-height: 1.08;
       letter-spacing: -0.035em;
-      color: #0d0d0d;
+      color: #F2F2F0;
       margin-bottom: 1.15rem;
       max-width: 660px;
     }
@@ -386,7 +382,7 @@
     .description {
       font-size: clamp(0.96rem, 1.6vw, 1.15rem);
       line-height: 1.6;
-      color: #444444;
+      color: #8A8A8A;
       margin-bottom: 1.75rem;
       max-width: 540px;
     }
@@ -417,7 +413,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #444444;
+      color: #8A8A8A;
       display: inline-block;
       white-space: nowrap;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease, filter 0.22s ease;
@@ -439,32 +435,33 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background-color: #0d0d0d;
-      color: #ffffff;
+      background-color: #F2F2F0;
+      color: #0A0A0A;
       display: flex;
       justify-content: center;
       align-items: center;
       text-decoration: none;
       font-size: 1.25rem;
       transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
     }
 
     .social-btn:hover {
-      background-color: #222222;
+      background-color: #C8FF00;
+      color: #0A0A0A;
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 8px 20px rgba(200, 255, 0, 0.25);
     }
 
     .email-link {
       display: inline-block;
       font-size: clamp(0.95rem, 1.4vw, 1.1rem);
       font-weight: 700;
-      color: #0d0d0d;
+      color: #F2F2F0;
       text-decoration: none;
       letter-spacing: 0.01em;
       padding-bottom: 3px;
-      border-bottom: 2px solid #0d0d0d;
+      border-bottom: 2px solid #C8FF00;
       transition: opacity 0.2s ease;
       margin-top: 0.4rem;
     }
@@ -481,7 +478,7 @@
   transform: translateX(-50%) translateY(20px);
   font-size: 0.82rem;
   letter-spacing: 0.04em;
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(242, 242, 240, 0.45);
   font-weight: 500;
   pointer-events: none;
   z-index: 100;
@@ -582,12 +579,12 @@
     window.addEventListener('resize', initCanvas);
     initCanvas();
 
-const baseBg = "#f6f0e8";
+const baseBg = "#0A0A0A";
   const blobs = [
-    { r: 248, g: 185, b: 140, a: 0.55, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
-    { r: 255, g: 205, b: 160, a: 0.50, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
-    { r: 242, g: 170, b: 120, a: 0.40, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
-    { r: 252, g: 215, b: 185, a: 0.45, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
+    { r: 200, g: 255, b: 0,   a: 0.14, orbitR: 0.38, speed: 0.022, phase: 0, sizeMult: 0.75 },
+    { r: 150, g: 220, b: 60,  a: 0.10, orbitR: 0.42, speed: -0.018, phase: Math.PI * 0.5, sizeMult: 0.85 },
+    { r: 100, g: 180, b: 255, a: 0.07, orbitR: 0.28, speed: 0.028, phase: Math.PI * 1.1, sizeMult: 0.65 },
+    { r: 180, g: 255, b: 40,  a: 0.09, orbitR: 0.48, speed: -0.015, phase: Math.PI * 1.6, sizeMult: 0.80 }
   ];
 
   let animating = false;
